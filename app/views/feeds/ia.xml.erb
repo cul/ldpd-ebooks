@@ -1,0 +1,35 @@
+<%
+  # TODO: Use IA scraping API, otherwise we're limited to paging through the first 10,000 results (see https://archive.org/help/aboutsearch.htm).
+  url = "https://archive.org/advancedsearch.php?q=collection%3AColumbiaUniversityLibraries&fl%5B%5D=description&fl%5B%5D=identifier&fl%5B%5D=title&sort%5B%5D=&sort%5B%5D=&sort%5B%5D=&rows=#{@per_page}&page=#{@page}&output=json"
+  json = JSON.parse(Faraday.get(url).body)
+  docs = json['response']['docs']
+%>
+<feed xmlns:app="http://www.w3.org/2007/app" xmlns:bibframe="http://bibframe.org/vocab/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:drm="http://librarysimplified.org/terms/drm" xmlns:opds="http://opds-spec.org/2010/catalog" xmlns:schema="http://schema.org/" xmlns:simplified="http://librarysimplified.org/terms/" xmlns="http://www.w3.org/2005/Atom">
+  <id><%= request.original_url %></id>
+  <title>Columbia University Internet Archive EBooks</title>
+  <updated><%= Time.now.iso8601 %></updated>
+
+  <% if @page > 1 %>
+    <link href="<%= ia_feeds_url(page: @page - 1) %>" rel="previous"/>
+  <% end %>
+  <link href="<%= ia_feeds_url %>" rel="self"/>
+  <% if docs.length > 0 %>
+  <link href="<%= ia_feeds_url(page: @page + 1) %>" rel="next"/>
+  <% end %>
+
+  <%
+  url = "https://archive.org/advancedsearch.php?q=collection%3AColumbiaUniversityLibraries&fl%5B%5D=description&fl%5B%5D=identifier&fl%5B%5D=title&sort%5B%5D=&sort%5B%5D=&sort%5B%5D=&rows=#{@per_page}&page=#{@page}&output=json"
+  json = JSON.parse(Faraday.get(url).body)
+  json['response']['docs'].each do |result|
+    %>
+    <entry>
+      <id><%= result['identifier'] %></id>
+      <title><%= result['title'] %></title>
+      <bibframe:distribution bibframe:ProviderName="Internet Archive"/>
+      <summary type="html"><%= result['description'] %></summary>
+      <updated><%= Time.now.iso8601 %></updated>
+    </entry>
+    <%
+  end
+  %>
+</feed>
