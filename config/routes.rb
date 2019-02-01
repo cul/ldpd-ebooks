@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :feeds, only: [:index], :defaults => { :format => 'xml' } do
     collection do
       get 'ia'
+      get 'ia_crawlable'
     end
   end
 end

@@ -3,12 +3,9 @@
   <title>Columbia University Internet Archive EBooks</title>
   <updated><%= Time.now.iso8601 %></updated>
 
-  <% if @page > 1 %>
-    <link href="<%= ia_feeds_url(page: @page - 1, cursor: @cursor) %>" rel="previous"/>
-  <% end %>
   <link href="<%= ia_feeds_url %>" rel="self"/>
-  <% if @entries.length > 0 %>
-  <link href="<%= ia_feeds_url(page: @page + 1, cursor: @cursor) %>" rel="next"/>
+  <% if @more_results_available %>
+    <link href="<%= ia_crawlable_feeds_url(cursor: @next_cursor) %>" rel="next" title="Next results"/>
   <% end %>
 
   <% @entries.each do |entry| %>
