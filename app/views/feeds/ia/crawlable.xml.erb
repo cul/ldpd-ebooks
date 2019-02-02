@@ -1,0 +1,8 @@
+<%= render partial: 'feed_header' %>
+
+<% if @more_results_available %>
+  <link href="<%= crawlable_feeds_ia_url(id: @ia_feed_id, cursor: @next_cursor) %>" rel="next" title="Next"/>
+<% end %>
+
+<%= render partial: 'feed_entries' %>
+<%= render partial: 'feed_footer' %>

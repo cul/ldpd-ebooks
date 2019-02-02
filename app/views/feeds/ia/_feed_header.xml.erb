@@ -1,14 +1,6 @@
 <feed xmlns:app="http://www.w3.org/2007/app" xmlns:bibframe="http://bibframe.org/vocab/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:drm="http://librarysimplified.org/terms/drm" xmlns:opds="http://opds-spec.org/2010/catalog" xmlns:schema="http://schema.org/" xmlns:simplified="http://librarysimplified.org/terms/" xmlns="http://www.w3.org/2005/Atom">
   <id><%= request.original_url %></id>
-  <title>Columbia University Internet Archive EBooks</title>
+  <title>Columbia University Internet Archive EBooks (<%= @ia_feed_id %>)</title>
   <updated><%= Time.now.iso8601 %></updated>
 
-  <link href="<%= ia_feeds_url %>" rel="self"/>
-  <% if @more_results_available %>
-    <link href="<%= ia_crawlable_feeds_url(cursor: @next_cursor) %>" rel="next" title="Next results"/>
-  <% end %>
-
-  <% @entries.each do |entry| %>
-    <%= render partial: 'ia_entry', locals: {entry: entry} %>
-  <% end %>
-</feed>
+  <link href="<%= feeds_ia_url(@ia_feed_id) %>" rel="self"/>

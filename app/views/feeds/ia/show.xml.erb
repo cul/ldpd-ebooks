@@ -1,0 +1,13 @@
+<%= render partial: 'feed_header' %>
+
+<link rel="http://opds-spec.org/crawlable" type="application/atom+xml" href="<%= crawlable_feeds_ia_url(@ia_feed_id) %>" title="Crawlable feed"/>
+
+<% if @page > 1 %>
+  <link href="<%= feeds_ia_url(id: @ia_feed_id, page: @page - 1) %>" rel="previous" title="Previous"/>
+<% end %>
+<% if @more_results_available %>
+<link href="<%= feeds_ia_url(id: @ia_feed_id, page: @page + 1) %>" rel="next" title="Next"/>
+<% end %>
+
+<%= render partial: 'feed_entries' %>
+<%= render partial: 'feed_footer' %>

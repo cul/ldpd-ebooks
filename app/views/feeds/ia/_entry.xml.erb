@@ -6,15 +6,15 @@
     <title><%= entry.title %></title>
   <% end %>
   <bibframe:distribution bibframe:ProviderName="Internet Archive"/>
-  <% if entry.description.present? %>
-    <summary type="html"><%= entry.description %></summary>
+  <% if entry.summary.present? %>
+    <summary type="html"><%= entry.summary %></summary>
   <% end %>
   <% if entry.updated.present? %>
     <updated><%= entry.updated.iso8601 %></updated>
   <% end %>
-  <% if entry.item_date.present? %>
-    <dcterms:issued><%= entry.item_date.year %></dcterms:issued>
-    <published><%= entry.item_date.iso8601 %></published>
+  <% if entry.date_issued.present? %>
+    <dcterms:issued><%= entry.date_issued.year %></dcterms:issued>
+    <published><%= entry.date_issued.iso8601 %></published>
   <% end %>
   <% if entry.publisher.present? %>
     <dcterms:publisher><%= entry.publisher %></dcterms:publisher>
@@ -28,13 +28,13 @@
   <% entry.subjects.each do |subject| %>
     <category term="<%= subject %>" label="<%= subject %>"/>
   <% end %>
-  <% if entry.formats.include?('Text PDF') %>
+  <% if (['Text PDF', 'Image Container PDF'] & entry.formats).present? %>
     <link href="https://archive.org/download/<%= entry.identifier %>/<%= entry.identifier %>.pdf" type="application/pdf" rel="http://opds-spec.org/acquisition/open-access"/>
   <% end %>
   <% if entry.formats.include?('Abbyy GZ') %>
     <link href="https://archive.org/download/<%= entry.identifier %>/<%= entry.identifier %>.epub" type="application/epub+zip" rel="http://opds-spec.org/acquisition/open-access"/>
   <% end %>
-  <% if entry.formats.include?('JPEG Thumb') %>
+  <% if (['JPEG Thumb', 'Item Tile', 'Animated GIF'] & entry.formats).present? %>
     <link href="http://archive.org/download/<%= entry.identifier %>/page/cover_medium.jpg" type="image/jpeg" rel="http://opds-spec.org/image"/>
     <link href="http://archive.org/download/<%= entry.identifier %>/page/cover_medium.jpg" type="image/jpeg" rel="http://opds-spec.org/image/thumbnail"/>
   <% end %>
