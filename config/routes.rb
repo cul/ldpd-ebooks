@@ -9,13 +9,14 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  get '/feeds', to: redirect('/feeds/ia')
-
   namespace :feeds do
     resources :ia, only: [:index, :show], :defaults => { :format => 'xml' } do
       member do
         get 'crawlable'
       end
     end
+
+    get 'knowledge_unlatched/all', to: 'knowledge_unlatched#all'
+
   end
 end

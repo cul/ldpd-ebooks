@@ -17,4 +17,5 @@
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.uncountable 'ia'
+  inflect.uncountable 'knowledge_unlatched'
 end
