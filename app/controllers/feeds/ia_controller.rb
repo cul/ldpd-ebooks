@@ -25,7 +25,7 @@ module Feeds
       # When using scraping api, per_page must be at least 100 because lower per_page value is not supported.
       data = Ebooks::IaSearcher.scraping_api_search("collection:#{CGI.escape(@ia_feed_id == 'all' ? MAIN_IA_COLLECTION : @ia_feed_id)}", DEFAULT_CRAWLABLE_PER_PAGE, ia_feed_params[:cursor])
       @next_cursor = data['cursor']
-      @more_results_available = data['total'] > 0
+      @more_results_available = (data['count'] != data['total']) # count equals total when we're on the last batch
       @entries = data['items'].map { |doc| Ebooks::IaSearcher.doc_to_entry(doc) }
     end
 
