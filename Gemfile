@@ -33,7 +33,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'faraday', '~> 0.15.4'
 
 # For unzipping
-gem 'rubyzip', '~> 1.2'
+gem 'rubyzip', '~> 1.3'
 
 # For parsing MARC
 gem 'marc', '~> 1.0'
