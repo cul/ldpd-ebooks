@@ -16,7 +16,9 @@ namespace :ebooks do
 
     while(more_results_available)
       data = Ebooks::IaSearcher.scraping_api_search(
-        "collection:#{CGI.escape(Feeds::IaController::MAIN_IA_COLLECTION)}", per_page, cursor
+        "collection:#{CGI.escape(Feeds::IaController::MAIN_IA_COLLECTION)}" + Feeds::IaController::FORMAT_FILTER,
+        per_page,
+        cursor
       )
       cursor = data['cursor']
       more_results_available = data['total'] > 0

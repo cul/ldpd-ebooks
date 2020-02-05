@@ -29,15 +29,18 @@
     <category term="<%= subject %>" label="<%= subject %>"/>
   <% end %>
   <% if entry.has_pdf? %>
-    <link href="https://archive.org/download/<%= entry.identifier %>/<%= entry.identifier %>.pdf" type="application/pdf" rel="http://opds-spec.org/acquisition/open-access"/>
+    <%=
+      # Note: The EPUB quality for our IA items is subpar, so we're only providing PDFs for now.
+      %Q(<link href="https://archive.org/download/#{entry.identifier}/#{entry.identifier}.pdf" type="application/pdf" rel="http://opds-spec.org/acquisition/open-access" />).html_safe
+    %>
   <% end %>
-  <% if entry.has_epub? %>
-    <link href="https://archive.org/download/<%= entry.identifier %>/<%= entry.identifier %>.epub" type="application/epub+zip" rel="http://opds-spec.org/acquisition/open-access"/>
-  <% end %>
+  <%
+    # if entry.has_epub?
+    #  %Q(<link href="https://archive.org/download/#{entry.identifier}/#{entry.identifier}.epub" type="application/epub+zip" rel="http://opds-spec.org/acquisition/open-access" />).html_safe
+    # end
+  %>
   <% if entry.has_image? %>
     <link href="http://archive.org/download/<%= entry.identifier %>/page/cover_medium.jpg" type="image/jpeg" rel="http://opds-spec.org/image"/>
     <link href="http://archive.org/download/<%= entry.identifier %>/page/cover_medium.jpg" type="image/jpeg" rel="http://opds-spec.org/image/thumbnail"/>
   <% end %>
-
-
 </entry>
