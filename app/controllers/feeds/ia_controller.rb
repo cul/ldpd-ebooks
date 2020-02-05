@@ -2,9 +2,11 @@ module Feeds
   class IaController < ApplicationController
 
     MAIN_IA_COLLECTION = 'ColumbiaUniversityLibraries'
-    # For IA, format list must contain 'pdf' because we want to ensure that we only retrieve items
+    # Note 1: For IA, format list must contain 'pdf' because we want to ensure that we only retrieve items
     # that have a PDF version, since EPUB results are subpar right now and will be suppressed in display.
-    FORMAT_FILTER = ' AND format:(pdf)'
+    # Note 2: We never want to pull in "Collection Header" format items, since they represent collections
+    # of things rather than individual items.
+    FORMAT_FILTER = ' AND format:pdf AND -format:(Collection Header)'
     DEFAULT_PER_PAGE = 100
     DEFAULT_CRAWLABLE_PER_PAGE = 1000
 
