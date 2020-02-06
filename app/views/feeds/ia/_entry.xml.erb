@@ -1,6 +1,6 @@
 <entry>
   <% if entry.identifier.present? %>
-  <id><%= entry.identifier %></id>
+  <id>urn:x-internet-archive:ebooks-app:item:<%= entry.identifier %></id>
   <% end %>
   <% if entry.title.present? %>
     <title><%= entry.title %></title>
