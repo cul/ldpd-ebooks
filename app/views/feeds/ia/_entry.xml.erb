@@ -25,9 +25,16 @@
   <% entry.creators.each do |creator| %>
     <author><%= creator %></author>
   <% end %>
-  <% entry.subjects.each do |subject| %>
-    <category term="<%= subject %>" label="<%= subject %>"/>
-  <% end %>
+<%
+=begin
+  # Commenting out subjects for now because they don't come with term and scheme attribute data.
+%>
+    <% entry.subjects.each do |subject| %>
+      <category term="<%= subject %>" label="<%= subject %>"/>
+    <% end %>
+<%
+=end
+%>
   <% if entry.has_pdf? %>
     <%=
       # Note: The EPUB quality for our IA items is subpar, so we're only providing PDFs for now.
