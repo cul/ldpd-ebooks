@@ -7,7 +7,7 @@
   <% end %>
   <bibframe:distribution bibframe:ProviderName="Internet Archive"/>
   <% if entry.summary.present? %>
-    <summary type="html"><%= entry.summary %></summary>
+    <summary type="text"><%= entry.summary %></summary>
   <% end %>
   <% if entry.updated.present? %>
     <updated><%= entry.updated.iso8601 %></updated>
