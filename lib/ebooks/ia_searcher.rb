@@ -1,7 +1,7 @@
 module Ebooks
   module IaSearcher
 
-    IA_FIELDS = 'identifier,title,description,oai_updatedate,format,date,subject'
+    IA_FIELDS = 'identifier,title,description,date,format,oai_updatedate,creator,subject,publisher,language'
     IA_SORT = 'identifier asc'
 
     # Note: This method can only page through up to 10,000 results because of
