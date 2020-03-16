@@ -23,7 +23,11 @@
     <dcterms:language><%= entry.language %></dcterms:language>
   <% end %>
   <% entry.creators.each do |creator| %>
-    <author><%= creator %></author>
+    <author>
+      <name><%= creator %></name>
+      <%# Note: creator names from IA are already in sorted form %>
+      <simplified:sort_name><%= creator %></simplified:sort_name>
+    </author>
   <% end %>
 <%
 =begin
