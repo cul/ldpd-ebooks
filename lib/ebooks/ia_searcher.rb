@@ -15,7 +15,8 @@ module Ebooks
       response = conn.get do |req|
         req.url '/advancedsearch.php'
         req.params['q'] = query
-        req.params['fl'] = IA_FIELDS
+        # the search API expects fl and sort to be arrays
+        req.params['fl'] = IA_FIELDS.split(',')
         req.params['sort'] = [IA_SORT]
         req.params['rows'] = per_page
         req.params['page'] = page
@@ -32,9 +33,11 @@ module Ebooks
       response = conn.get do |req|
         req.url '/services/search/v1/scrape'
         req.params['q'] = query
+        # the scraping API expects fields and sorts to be comma-delimited
+        # if identifier is a sort listed, it must be last
         req.params['fields'] = IA_FIELDS
-        req.params['count'] = per_page
         req.params['sorts'] = IA_SORT
+        req.params['count'] = per_page
         req.params['cursor'] = cursor if cursor.present?
       end
 
