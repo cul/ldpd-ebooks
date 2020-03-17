@@ -15,7 +15,8 @@ module Ebooks
       response = conn.get do |req|
         req.url '/advancedsearch.php'
         req.params['q'] = query
-        # the search API expects fl and sort to be arrays
+        # the search API supports comma-delimited or array fl values, but since the form at
+        # https://archive.org/advancedsearch.php uses arrays we'll follow that convention
         req.params['fl'] = IA_FIELDS.split(',')
         req.params['sort'] = [IA_SORT]
         req.params['rows'] = per_page
