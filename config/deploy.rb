@@ -29,17 +29,20 @@ set :deploy_to, "/opt/passenger/#{fetch(:instance)}/#{fetch(:deploy_name)}"
 set :log_level, :info
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids')
+append  :linked_dirs,
+        'log',
+        'tmp/pids',
+        'public/static-feeds'
 
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
 set :passenger_restart_with_touch, true
 
-set :linked_files, fetch(:linked_files, []).push(
-  'config/master.key',
-  'config/database.yml'
-)
+# Default value for :linked_files is []
+append  :linked_files,
+        'config/master.key',
+        'config/database.yml'
 
 namespace :deploy do
   desc "Report the environment"
