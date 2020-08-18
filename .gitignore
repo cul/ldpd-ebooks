@@ -34,3 +34,6 @@
 
 # simplecov coverage report
 /coverage
+
+# we don't want static-feeds in the repo
+/public/static-feeds
