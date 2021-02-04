@@ -38,7 +38,7 @@ gem 'rubyzip', '~> 1.2'
 # For parsing MARC
 gem 'marc', '~> 1.0'
 
-gem 'nokogiri', '~> 1.10'
+gem 'nokogiri', '~> 1.11'
 
 # Security-related minimum versions
 gem 'rake', '>= 13.0.1'
